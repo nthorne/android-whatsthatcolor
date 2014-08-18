@@ -1,6 +1,8 @@
 package com.gmail.notrupertthorne.whatsthatcolor;
 
 /*
+Copyright 2014 Niklas Thörne
+
 This file is part of What's That Color.
 
 What's That Color is free software: you can redistribute it and/or modify

@@ -8,6 +8,12 @@
         android:orderInCategory="110"
         android:title="@string/action_about"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_license"
+        android:orderInCategory="110"
+        android:title="@string/action_license"
+        app:showAsAction="never" />
     
     <item
         android:id="@+id/action_settings"

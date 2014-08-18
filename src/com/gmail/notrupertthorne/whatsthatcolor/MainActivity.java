@@ -1,6 +1,8 @@
 package com.gmail.notrupertthorne.whatsthatcolor;
 
 /*
+Copyright 2014 Niklas Thörne
+
 This file is part of What's That Color.
 
 What's That Color is free software: you can redistribute it and/or modify
@@ -101,6 +103,8 @@ public class MainActivity extends ActionBarActivity
       case R.id.action_about:
         launchAboutActivity();
         return true;
+      case R.id.action_license:
+        launchLicenseActivity();
     }
     return super.onOptionsItemSelected(item);
   }
@@ -141,6 +145,12 @@ public class MainActivity extends ActionBarActivity
   void launchAboutActivity()
   {
     final Intent intent = new Intent(this, AboutActivity.class);
+    startActivity(intent);
+  }
+  
+  void launchLicenseActivity()
+  {
+    final Intent intent = new Intent(this, LicenseActivity.class);
     startActivity(intent);
   }
 }
