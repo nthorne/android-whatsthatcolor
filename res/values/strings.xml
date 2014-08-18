@@ -9,6 +9,8 @@
     <string name="about_app">This app is developed by Niklas Thörne.\n\nIcon is courtesy of Studio Soda (http://trysoda.com).</string>
     <string name="default_color">Touch preview to sample</string>
     <string name="title_activity_license">License</string>
-    <string name="license_information">This app is released under the GNU General Public License (GPL) v3 (http://www.gnu.org/copyleft/gpl.html).\n\nCopyright Niklas Thörne, 2014.</string>
+    <string name="license_information">This app is released under the GNU General Public License (GPL) v3 (http://www.gnu.org/copyleft/gpl.html).\n\n
+        Copyright Niklas Thörne, 2014.\n\n
+        Source code can be obtained at https://github.com/nthorne/android-whatsthatcolor</string>
 
 </resources>
