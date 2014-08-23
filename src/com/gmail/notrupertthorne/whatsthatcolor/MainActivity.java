@@ -21,6 +21,7 @@ along with What's That Color.  If not, see <http://www.gnu.org/licenses/>.
 
 import java.lang.ref.WeakReference;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -31,6 +32,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 
 /**
  * This type implements the application's main view.
@@ -73,6 +79,8 @@ public class MainActivity extends ActionBarActivity
       }
     }
   }
+
+  private int REQUEST_CODE = 42;
 
   private CrosshairView m_crosshair;
 
@@ -119,6 +127,15 @@ public class MainActivity extends ActionBarActivity
   @Override
   public void onResume()
   {
+    int l_result = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+    if (ConnectionResult.SUCCESS != l_result)
+    {
+      Dialog l_dialog = GooglePlayServicesUtil.getErrorDialog(l_result, this, REQUEST_CODE);
+      if (null != l_dialog)
+      {
+        l_dialog.show();
+      }
+    }
     super.onResume();
     m_preview.openCamera();
   }
@@ -130,6 +147,15 @@ public class MainActivity extends ActionBarActivity
     setContentView(R.layout.activity_main);
 
     m_handler = new HandlerClass(this);
+
+    // Look up the AdView as a resource and load a request.
+    AdView adView = (AdView) this.findViewById(R.id.adView);
+    AdRequest adRequest = new AdRequest.Builder()
+    .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)       // Emulator
+    .addTestDevice("A5B23121C2B1DA201B438621179B3FD8") // .. to get from logcat.
+    .build();
+    adView.loadAd(adRequest);
+
 
     // Create the preview view, and set it as content of this Activity.
     m_preview = new CameraPreview(this, m_handler);

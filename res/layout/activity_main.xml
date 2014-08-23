@@ -1,5 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
@@ -8,6 +9,12 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.gmail.notrupertthorne.whatsthatcolor.MainActivity" >
 
+    <com.google.android.gms.ads.AdView android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        ads:adUnitId="ca-app-pub-7636485247944898/5797876164"
+        ads:adSize="BANNER"/>
+
     <FrameLayout
         android:id="@+id/camera_preview"
         android:layout_width="match_parent"
@@ -15,12 +22,12 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="40dp"
-        android:layout_marginTop="40dp" 
+        android:layout_marginTop="60dp" 
         android:layout_marginRight="40dp"
-        android:layout_marginBottom="40dp">
+        android:layout_marginBottom="60dp">
     </FrameLayout>
 
-    
+
     <FrameLayout
         android:id="@+id/crosshair_view"
         android:layout_width="match_parent"
@@ -28,11 +35,11 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="40dp"
-        android:layout_marginTop="40dp" 
+        android:layout_marginTop="60dp" 
         android:layout_marginRight="40dp"
-        android:layout_marginBottom="40dp">
+        android:layout_marginBottom="60dp">
     </FrameLayout>
-        
+
     <FrameLayout
         android:id="@+id/color_sample"
         android:layout_width="20dp"
