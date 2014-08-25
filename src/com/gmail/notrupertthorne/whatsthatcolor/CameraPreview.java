@@ -22,6 +22,7 @@ along with What's That Color.  If not, see <http://www.gnu.org/licenses/>.
 import java.io.IOException;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -157,8 +158,12 @@ public class CameraPreview extends SurfaceView implements
 
       if (m_camera != null)
       {
-        // Rotate the camera 90 degrees.
-        m_camera.setDisplayOrientation(90);
+        if (Configuration.ORIENTATION_PORTRAIT ==
+            getResources().getConfiguration().orientation)
+        {
+          // Rotate the camera 90 degrees.
+          m_camera.setDisplayOrientation(90);
+        }
       }
     }
   }
