@@ -7,7 +7,7 @@
     <string name="action_license">License</string>
     <string name="title_activity_about">AboutActivity</string>
     <string name="about_app">This app is developed by Niklas Thörne.\n\nIcon is courtesy of Studio Soda (http://trysoda.com).</string>
-    <string name="default_color">0x000000</string>
+    <string name="default_color">#000000</string>
     <string name="title_activity_license">License</string>
     <string name="license_information">This app is released under the GNU General Public License (GPL) v3 (http://www.gnu.org/copyleft/gpl.html).\n\n
         Copyright Niklas Thörne, 2014.\n\n

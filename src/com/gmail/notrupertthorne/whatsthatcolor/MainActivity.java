@@ -68,14 +68,9 @@ public class MainActivity extends ActionBarActivity
       final MainActivity l_main = m_weakMain.get();
       if (null != l_main)
       {
-        final TextView textView = (TextView) l_main
-            .findViewById(R.id.color_textbox);
         final String colorString = msg.getData().getString(
             CameraPreview.COLORKEY);
-        textView.setText(colorString);
-        final FrameLayout sampleFrame = (FrameLayout) l_main
-            .findViewById(R.id.color_sample);
-        sampleFrame.setBackgroundColor(Color.parseColor(colorString));
+        l_main.updateSampledColor(colorString);
       }
     }
   }
@@ -86,7 +81,9 @@ public class MainActivity extends ActionBarActivity
 
   private HandlerClass m_handler;
 
-  private CameraPreview m_preview;;
+  private CameraPreview m_preview;
+
+  private String m_colorString;
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu)
@@ -166,6 +163,12 @@ public class MainActivity extends ActionBarActivity
     m_crosshair = new CrosshairView(this);
     final FrameLayout crosshair = (FrameLayout) findViewById(R.id.crosshair_view);
     crosshair.addView(m_crosshair);
+
+    if (null != savedInstanceState && 
+        savedInstanceState.containsKey(CameraPreview.COLORKEY))
+    {
+      updateSampledColor(savedInstanceState.getString(CameraPreview.COLORKEY));
+    }
   }
 
   void launchAboutActivity()
@@ -173,10 +176,25 @@ public class MainActivity extends ActionBarActivity
     final Intent intent = new Intent(this, AboutActivity.class);
     startActivity(intent);
   }
-  
+
   void launchLicenseActivity()
   {
     final Intent intent = new Intent(this, LicenseActivity.class);
     startActivity(intent);
+  }
+
+  void updateSampledColor(String colorString)
+  {
+    final TextView textView = (TextView) findViewById(R.id.color_textbox);
+    textView.setText(colorString);
+    final FrameLayout sampleFrame = (FrameLayout) findViewById(R.id.color_sample);
+    sampleFrame.setBackgroundColor(Color.parseColor(colorString));
+    m_colorString = colorString;
+  }
+
+  @Override
+  protected void onSaveInstanceState(Bundle outState)
+  {
+    outState.putString(CameraPreview.COLORKEY, m_colorString);
   }
 }
