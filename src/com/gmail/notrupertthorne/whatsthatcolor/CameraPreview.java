@@ -77,15 +77,7 @@ public class CameraPreview extends SurfaceView implements
 
       if (null != data)
       {
-        final Bitmap l_bitmap = BitmapFactory.decodeByteArray(data, 0,
-            data.length);
-        // Get the target (center) pixel.
-        final int l_pixel = l_bitmap.getPixel(l_bitmap.getWidth() / 2,
-            l_bitmap.getHeight() / 2);
-        // Convert the pixel Color to a hexified String.
-        final String l_hex = String.format("#%02x%02x%02x", Color.red(l_pixel),
-            Color.green(l_pixel), Color.blue(l_pixel));
-
+        final String l_hex = getPixelValue(data);
         Log.d(LOG_TAG, String.format("Color: %s", l_hex));
 
         // Send the RGB code to the handler.
@@ -97,6 +89,49 @@ public class CameraPreview extends SurfaceView implements
       }
       camera.startPreview();
     }
+
+    private final String getPixelValue(byte[] data)
+    {
+      final Bitmap l_bitmap = BitmapFactory.decodeByteArray(data, 0,
+          data.length);
+
+      // Get the average color value of the nine centermost pixels
+      final int l_startX = (l_bitmap.getWidth() / 2) - 1;
+      final int l_startY = (l_bitmap.getHeight() / 2) - 1;
+
+      int l_r = 0;
+      int l_g = 0;
+      int l_b = 0;
+
+      int l_pixels = 0;
+
+      for (int l_y = 0; l_y < 3; ++l_y)
+      {
+        for (int l_x = 0; l_x < 3; ++l_x)
+        {
+          // Get the target (center) pixel.
+          final int l_pixel = l_bitmap.getPixel(
+              l_startX + l_x,
+              l_startY + l_y);
+
+          l_r += Color.red(l_pixel);
+          l_g += Color.green(l_pixel);
+          l_b += Color.blue(l_pixel);
+
+          ++l_pixels;
+        }
+      }
+
+      l_r /= l_pixels;
+      l_g /= l_pixels;
+      l_b /= l_pixels;
+
+      // Convert the pixel Color to a hexified String.
+      final String l_hex = String.format("#%02x%02x%02x", l_r, l_g, l_b);
+
+      return l_hex;
+    }
+
   };
 
   /**
