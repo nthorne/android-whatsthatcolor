@@ -26,6 +26,7 @@ import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.hardware.Camera;
 import android.hardware.Camera.PictureCallback;
 import android.hardware.Camera.ShutterCallback;
@@ -89,11 +90,27 @@ public class CameraPreview extends SurfaceView implements
       }
       camera.startPreview();
     }
+    // TODO: Is this even neeeded??
 
     private final String getPixelValue(byte[] data)
     {
-      final Bitmap l_bitmap = BitmapFactory.decodeByteArray(data, 0,
+      Bitmap l_bitmap = BitmapFactory.decodeByteArray(data, 0,
           data.length);
+
+      final int l_width = l_bitmap.getWidth();
+      final int l_height = l_bitmap.getHeight();
+
+      if (Configuration.ORIENTATION_PORTRAIT ==
+          getResources().getConfiguration().orientation)
+      {
+        Log.d(LOG_TAG, "Rotating bitmap..");
+
+        Matrix l_matrix = new Matrix();
+        l_matrix.setRotate(90, l_width/2, l_height/2);
+
+        l_bitmap = Bitmap.createBitmap(l_bitmap, 0, 0,
+            l_width, l_height, l_matrix, true);
+      }
 
       // Get the average color value of the nine centermost pixels
       final int l_startX = (l_bitmap.getWidth() / 2) - 1;
@@ -136,6 +153,8 @@ public class CameraPreview extends SurfaceView implements
 
   /**
    * This callback is used to add a shutter sound to Camera.takePicture
+   *
+   * @todo Is this even needed?? Shutter sound plays anyway.
    */
   private final ShutterCallback mShutter = new ShutterCallback()
   {
