@@ -22,6 +22,9 @@ along with What's That Color.  If not, see <http://www.gnu.org/licenses/>.
 import java.lang.ref.WeakReference;
 
 import android.app.Dialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -30,8 +33,10 @@ import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -196,5 +201,20 @@ public class MainActivity extends ActionBarActivity
   protected void onSaveInstanceState(Bundle outState)
   {
     outState.putString(CameraPreview.COLORKEY, m_colorString);
+  }
+
+  public void onColorTextViewClick(View v)
+  {
+    final ClipboardManager l_clipboard = 
+        (ClipboardManager)getSystemService(CLIPBOARD_SERVICE);
+    final ClipData l_clip = 
+        ClipData.newPlainText("Color code", m_colorString);
+    l_clipboard.setPrimaryClip(l_clip);
+
+    final Context l_context = getApplicationContext();
+    final int l_duration = Toast.LENGTH_LONG;
+    final CharSequence l_text = "Color code copied to clipboard.";
+
+    Toast.makeText(l_context, l_text, l_duration).show();
   }
 }
