@@ -107,9 +107,6 @@ public class MainActivity extends ActionBarActivity
     final int id = item.getItemId();
     switch (id)
     {
-      case R.id.action_settings:
-        // TODO: Implement this, or perhaps drop the settings altogether..
-        return true;
       case R.id.action_about:
         launchAboutActivity();
         return true;
